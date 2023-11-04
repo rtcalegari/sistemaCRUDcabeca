@@ -1,0 +1,11 @@
+.tipo-msg {
+    width: 15px;
+    height: 15px;
+    border-radius: 4px;
+
+    background-color: blue;
+}
+
+.tipo-msg.msg-error {
+    background-color: red;
+}
