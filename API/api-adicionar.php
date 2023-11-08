@@ -25,13 +25,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($mensagem)){
-        $query = "INSERT INTO usuarios (nome, email, senha) VALUES ('$nome', '$email', '$senha')";
+        $conexao = (new Conexao())->getPDO();
+        $sql = "INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindValue(":nome", $nome, \PDO::PARAM_STR);
+        $stmt->bindValue(":email", $email, \PDO::PARAM_STR);
+        $stmt->bindValue(":senha", $senha, \PDO::PARAM_STR);
+        $resultado=$stmt->execute();
 
-        if ($mysqli->query($query) === TRUE) {
+        if ($resultado) {
             echo json_encode(['status' => true, 'msg' => 'Registro inserido com sucesso']);
         } else {
             //retorna o erro do banco
-            echo json_encode(['status' => false, 'msg' => $mysqli->error]);
+            //perguntar para o cabeça como retornar o erro pdo
+            echo json_encode(['status' => false, 'msg' => 'Erro!']);
         }
     } else
         echo json_encode(['status' => false, 'msg' => $mensagem]);

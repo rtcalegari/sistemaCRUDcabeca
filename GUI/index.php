@@ -5,7 +5,7 @@ if (!isset($_SESSION['id'])) {
     exit;
 }
 
-include_once 'conexao.php';
+include_once __DIR__ . '../../API/conexao.php';
 
 // Define a quantidade de registros por página
 $registrosPorPagina = 8;

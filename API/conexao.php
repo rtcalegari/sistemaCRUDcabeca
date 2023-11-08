@@ -1,14 +1,16 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bancoCRUD";
+    class Conexao{
 
-// Crie uma conex�o com o banco de dados
-$mysqli = new mysqli($servername, $username, $password, $dbname);
+        private $pdo;
+        public function __construct(){
+            $this->pdo = new PDO("mysql:host=localhost;dbname=bancoCRUD;","root","",array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_OBJ));
+        }
 
-// Verifique a conex�o
-if ($mysqli->connect_error) {
-    die("Erro na conex�o com o banco de dados: " . $mysqli->connect_error);
-}
+        public function getPDO(){
+            if ($this->pdo!=null)
+                return $this->pdo;
+            else
+                return null; 
+        }
+    }
 ?>
